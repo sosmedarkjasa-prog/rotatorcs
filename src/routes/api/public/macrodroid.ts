@@ -27,18 +27,19 @@ async function readPayload(request: Request): Promise<Record<string, string>> {
           const json = JSON.parse(text) as Record<string, unknown>;
           for (const [k, v] of Object.entries(json)) if (v != null) out[k] = String(v);
         } catch {
-          out.message = out.message ?? text;
+          out["message"] = out["message"] ?? text;
         }
       }
     }
   }
   const header = request.headers.get("x-webhook-secret");
-  if (header) out.secret = header;
+  if (header) out["secret"] = header;
+  const sender = out["sender"] ?? out["from"] ?? out["title"];
   return {
-    secret: out.secret ?? out.key ?? "",
-    message: out.message ?? out.text ?? out.notification ?? "",
-    ...(out.sender ?? out.from ?? out.title ? { sender: out.sender ?? out.from ?? out.title } : {}),
-    ...(out.source ? { source: out.source } : {}),
+    secret: out["secret"] ?? out["key"] ?? "",
+    message: out["message"] ?? out["text"] ?? out["notification"] ?? "",
+    ...(sender ? { sender } : {}),
+    ...(out["source"] ? { source: out["source"] } : {}),
   };
 }
 

@@ -93,7 +93,10 @@ export const getDashboard = createServerFn({ method: "GET" }).handler(async () =
   fail(clicks.error, "clicks");
   fail(chats.error, "chats");
 
-  const s = (stats.data ?? {}) as Record<string, number>;
+  const s = (stats.data ?? {}) as Partial<{
+    total_clicks: number; clicks_cs1: number; clicks_cs2: number; clicks_backup: number; clicks_today: number;
+    total_chats: number; matched_chats: number; unmatched_chats: number; chats_today: number;
+  }>;
   return {
     agents: agents.data ?? [],
     settings: settings.data!,
