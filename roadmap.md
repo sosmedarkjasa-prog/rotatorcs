@@ -8,3 +8,4 @@
 - [x] Audit history (DB): CS, nomor lama & baru, waktu, dampak rotasi (sebelum → sesudah)
 - [ ] Tests for rotation and phone formatting rules
 - [ ] Admin password protection (CS portal stays open via private link)
+- [ ] Show the finished web to the user (preview + screenshots)
