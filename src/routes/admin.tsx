@@ -127,7 +127,7 @@ function AdminDashboard() {
                 : "Kedua CS nonaktif dan nomor cadangan kosong — pengunjung tidak bisa chat! Isi nomor cadangan sekarang."}
             </div>
           )}
-          <div className="grid gap-4 lg:grid-cols-[1fr_1fr_1fr_minmax(0,320px)]">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 [&>*]:min-w-0">
             {cs1 && <AgentCard key={cs1.id} agent={cs1} clicks={data.stats.clicks_cs1} share={split.cs1} origin={origin} />}
             {cs2 && <AgentCard key={cs2.id} agent={cs2} clicks={data.stats.clicks_cs2} share={split.cs2} origin={origin} />}
             <BackupCard settings={data.settings} clicks={data.stats.clicks_backup} engaged={!up1 && !up2 && upB} />
