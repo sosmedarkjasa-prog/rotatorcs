@@ -22,7 +22,6 @@ export function eventMeta(type: string) {
   return EVENT_META[type] ?? { label: type, className: "bg-secondary text-secondary-foreground" };
 }
 
-const FILTERS = ["Semua", "CS 1", "CS 2", "Backup Owner"] as const;
 
 function statusLabel(s: string | null) {
   if (s === "active") return "Aktif";
@@ -65,12 +64,18 @@ function toCsv(rows: Log[]) {
   return [header.map(esc).join(","), ...lines].join("\n");
 }
 
-export function AuditLog({ logs }: { logs: Log[] }) {
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("Semua");
-  const rows = useMemo(
-    () => (filter === "Semua" ? logs : logs.filter((l) => l.agent_label === filter || (filter !== "Backup Owner" && l.agent_label.endsWith(filter.slice(-1)) && l.agent_label.startsWith("CS")))),
-    [logs, filter],
-  );
+export function AuditLog({ logs, agents }: { logs: Log[]; agents: DashboardData["agents"] }) {
+  const [filter, setFilter] = useState<string>("all");
+  const filters = [
+    { value: "all", label: "Semua" },
+    ...agents.map((a) => ({ value: a.id, label: a.name })),
+    { value: "backup", label: "Cadangan" },
+  ];
+  const rows = useMemo(() => {
+    if (filter === "all") return logs;
+    if (filter === "backup") return logs.filter((l) => !l.agent_id);
+    return logs.filter((l) => l.agent_id === filter);
+  }, [logs, filter]);
 
   function download() {
     const blob = new Blob(["\ufeff" + toCsv(rows)], { type: "text/csv;charset=utf-8" });
@@ -92,17 +97,17 @@ export function AuditLog({ logs }: { logs: Log[] }) {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {FILTERS.map((f) => (
+          {filters.map((f) => (
             <button
-              key={f}
+              key={f.value}
               type="button"
-              onClick={() => setFilter(f)}
+              onClick={() => setFilter(f.value)}
               className={cn(
                 "rounded-full px-3 py-1 text-xs",
-                filter === f ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground",
+                filter === f.value ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground",
               )}
             >
-              {f}
+              {f.label}
             </button>
           ))}
           <Button size="sm" variant="secondary" onClick={download} disabled={rows.length === 0}>

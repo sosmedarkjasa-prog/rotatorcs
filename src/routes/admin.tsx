@@ -146,7 +146,7 @@ function AdminDashboard() {
             <CampaignsPanel data={data} origin={origin} />
           </TabsContent>
           <TabsContent value="audit">
-            <AuditLog logs={data.logs} />
+            <AuditLog logs={data.logs} agents={data.agents} />
           </TabsContent>
           <TabsContent value="feed">
             <FeedPanel data={data} />
