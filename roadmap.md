@@ -1,9 +1,10 @@
 # Roadmap — WhatsApp Tracker & Link Rotator
 
-- [ ] Database: CS agents, settings/backup, campaigns, clicks, chats, activity log, admin roles
+- [x] Database: CS agents, settings/backup, campaigns, clicks, chats, activity log
 - [ ] Rotator link /go/<slug> (round-robin 50:50, failover, backup owner)
 - [ ] CS emergency portal /cs/<token> (lapor banned, pakai nomor lama, ganti nomor +62, undo)
-- [ ] Admin dashboard (login, override status, edit nomor, backup, kampanye + ref code, stats, realtime log)
+- [ ] Admin dashboard (password gate "admin password" via server session, override status, edit nomor, backup, kampanye + ref code, stats, realtime log)
 - [ ] MacroDroid webhook + simulator
-- [ ] Audit history: CS, nomor lama & baru, waktu, dampak rotasi (sebelum → sesudah)
+- [x] Audit history (DB): CS, nomor lama & baru, waktu, dampak rotasi (sebelum → sesudah)
 - [ ] Tests for rotation and phone formatting rules
+- [ ] Admin password protection (CS portal stays open via private link)
