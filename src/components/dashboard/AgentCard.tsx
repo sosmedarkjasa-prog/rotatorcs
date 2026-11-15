@@ -162,7 +162,16 @@ export function AgentCard({
               <Siren className="mr-1 h-3.5 w-3.5" /> Override: Set Banned
             </Button>
           )}
-          <Button size="sm" variant="secondary" onClick={() => setEditing(true)}>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              setName(agent.name);
+              setPhone(agent.phone ? agent.phone.slice(2) : "");
+              setPhoneError(null);
+              setEditing(true);
+            }}
+          >
             <Pencil className="mr-1 h-3.5 w-3.5" /> Edit
           </Button>
         </div>

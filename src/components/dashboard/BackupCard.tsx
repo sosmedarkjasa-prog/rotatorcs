@@ -110,7 +110,16 @@ export function BackupCard({
         </form>
       ) : (
         <div className="mt-4">
-          <Button size="sm" variant="secondary" onClick={() => setEditing(true)}>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => {
+              setName(settings.backup_name);
+              setPhone(settings.backup_phone ? settings.backup_phone.slice(2) : "");
+              setError(null);
+              setEditing(true);
+            }}
+          >
             <Pencil className="mr-1 h-3.5 w-3.5" /> Edit cadangan
           </Button>
         </div>
