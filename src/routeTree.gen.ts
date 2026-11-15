@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GoSlugRouteImport } from './routes/go.$slug'
+import { Route as ApiPublicMacrodroidRouteImport } from './routes/api/public/macrodroid'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GoSlugRoute = GoSlugRouteImport.update({
+  id: '/go/$slug',
+  path: '/go/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMacrodroidRoute = ApiPublicMacrodroidRouteImport.update({
+  id: '/api/public/macrodroid',
+  path: '/api/public/macrodroid',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/go/$slug': typeof GoSlugRoute
+  '/api/public/macrodroid': typeof ApiPublicMacrodroidRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/go/$slug': typeof GoSlugRoute
+  '/api/public/macrodroid': typeof ApiPublicMacrodroidRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/go/$slug': typeof GoSlugRoute
+  '/api/public/macrodroid': typeof ApiPublicMacrodroidRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/go/$slug' | '/api/public/macrodroid'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/go/$slug' | '/api/public/macrodroid'
+  id: '__root__' | '/' | '/go/$slug' | '/api/public/macrodroid'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GoSlugRoute: typeof GoSlugRoute
+  ApiPublicMacrodroidRoute: typeof ApiPublicMacrodroidRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/go/$slug': {
+      id: '/go/$slug'
+      path: '/go/$slug'
+      fullPath: '/go/$slug'
+      preLoaderRoute: typeof GoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/macrodroid': {
+      id: '/api/public/macrodroid'
+      path: '/api/public/macrodroid'
+      fullPath: '/api/public/macrodroid'
+      preLoaderRoute: typeof ApiPublicMacrodroidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GoSlugRoute: GoSlugRoute,
+  ApiPublicMacrodroidRoute: ApiPublicMacrodroidRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
