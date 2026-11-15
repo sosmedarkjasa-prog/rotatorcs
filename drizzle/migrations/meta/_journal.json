@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794772253570,
+      "tag": "0000_wa_rotator_core",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794772298299,
+      "tag": "0001_admin_password_gate_doorbell",
+      "breakpoints": true
+    }
+  ]
+}
