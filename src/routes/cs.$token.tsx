@@ -2,11 +2,10 @@ import { queryOptions, useQueryClient, useSuspenseQuery } from "@tanstack/react-
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useState } from "react";
-import { formatDistanceToNow } from "date-fns";
-import { id as localeId } from "date-fns/locale";
 import { AlertTriangle, CheckCircle2, RefreshCcw, RotateCcw, Siren, Smartphone } from "lucide-react";
 import { toast } from "sonner";
 
+import { TimeAgo } from "@/components/TimeAgo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -195,9 +194,8 @@ function Portal({ token, agent }: { token: string; agent: CsPortalState }) {
               <div>
                 <p className="font-bold">Nomor kamu sedang nonaktif</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Chat baru dialihkan ({agent.rotation}).
-                  {agent.banned_at &&
-                    ` Dilaporkan ${formatDistanceToNow(new Date(agent.banned_at), { addSuffix: true, locale: localeId })}.`}
+                  Chat baru dialihkan ({agent.rotation}).{" "}
+                  {agent.banned_at && <TimeAgo date={agent.banned_at} prefix="Dilaporkan " />}
                 </p>
               </div>
             </div>
@@ -264,7 +262,7 @@ function Portal({ token, agent }: { token: string; agent: CsPortalState }) {
       )}
 
       <p className="mt-8 text-center text-xs text-muted-foreground">
-        Terakhir diperbarui {formatDistanceToNow(new Date(agent.updated_at), { addSuffix: true, locale: localeId })}
+        Terakhir diperbarui <TimeAgo date={agent.updated_at} />
       </p>
     </main>
   );
