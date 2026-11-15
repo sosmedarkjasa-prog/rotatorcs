@@ -63,9 +63,9 @@
   --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-data);
+  --font-sans: var(--family-body);
+  --font-display: var(--family-display);
+  --font-mono: var(--family-data);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -124,9 +124,9 @@
   --sidebar-accent-foreground: oklch(0.95 0.012 160);
   --sidebar-border: oklch(0.32 0.025 165);
   --sidebar-ring: oklch(0.8 0.17 155);
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-data: "JetBrains Mono", ui-monospace, monospace;
+  --family-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --family-body: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --family-data: "JetBrains Mono", ui-monospace, monospace;
 }
 
 @layer base {
@@ -137,13 +137,13 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-body);
+    font-family: var(--family-body);
     background-image:
       radial-gradient(circle at 1px 1px, oklch(1 0 0 / 4%) 1px, transparent 0);
     background-size: 22px 22px;
   }
   h1, h2, h3 {
-    font-family: var(--font-display);
+    font-family: var(--family-display);
     letter-spacing: -0.02em;
   }
 }
@@ -163,6 +163,6 @@
   animation: live-pulse 2s ease-in-out infinite;
 }
 @utility font-data {
-  font-family: var(--font-data);
+  font-family: var(--family-data);
   font-variant-numeric: tabular-nums;
 }
